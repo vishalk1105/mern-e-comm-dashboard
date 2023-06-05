@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-const SignUp = () => {
-  const navigate = useNavigate();
-  const [name, setName] = useState("");
+
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const auth = localStorage.getItem("user");
   useEffect(() => {
     if (auth) {
@@ -13,53 +12,43 @@ const SignUp = () => {
     }
   });
   const onSubmit = async () => {
-    const result = await fetch("http://localhost:5000/register", {
+    const result = await fetch("http://localhost:5000/login", {
       method: "POST",
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ email, password }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-
     const data = await result.json();
-    console.log(data, "login data");
-    localStorage.setItem("user", JSON.stringify(data));
+    console.log(data);
     if (data) {
+      localStorage.setItem("user", JSON.stringify(data));
       navigate("/");
     }
-    setName("");
-    setEmail("");
-    setPassword("");
+    // setEmail("");
+    // setPassword("");
   };
   return (
-    <div>
-      SignUp
+    <div className="login">
       <input
+        type="email"
         className="input_box"
-        type="text"
-        placeholder="Enter Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        className="input_box"
-        type="text"
         placeholder="Enter Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
-        className="input_box"
         type="password"
+        className="input_box"
         placeholder="Enter Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <button className="signup_btn" type="button" onClick={onSubmit}>
-        Sign Up
+        Log In
       </button>
     </div>
   );
 };
 
-export default SignUp;
+export default Login;
