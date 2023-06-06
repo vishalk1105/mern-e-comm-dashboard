@@ -21,8 +21,9 @@ const Login = () => {
     });
     const data = await result.json();
     console.log(data);
-    if (data) {
-      localStorage.setItem("user", JSON.stringify(data));
+    if (data.auth) {
+      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("token", JSON.stringify(data.auth));
       navigate("/");
     }
     // setEmail("");

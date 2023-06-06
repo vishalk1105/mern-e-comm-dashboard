@@ -96,3 +96,10 @@
   background-color: bisque;
   border: 1px solid darkorange;
 }
+
+.search_input_box {
+  width: 300px;
+  padding: 6px;
+  margin-bottom: 16px;
+  border: 2px solid darkgoldenrod;
+}
